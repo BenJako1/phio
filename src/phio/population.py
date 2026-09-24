@@ -85,33 +85,19 @@ class REMPI:
 
             t_eval_on = np.linspace(t_start, t_pulse_end, n_eval)
 
-            print(f"state before res_on: {state}")
+            res_on = solve_ivp(self._repetition_derivatives_on, [t_start, t_pulse_end], state, t_eval=t_eval_on, method=method)
 
-            print(self.k0, self.k1, self.k2, self.gamma)
-
-            print(t_start, t_pulse_end)
-
-            res_on = solve_ivp(self._repetition_derivatives_on, [t_start, t_pulse_end], state, method=method)
-
-            print("success:", res_on.success)
-
-            print("status:", res_on.status)
-
-            print("message:", res_on.message)
-
-            print("t:", res_on.t)
-
-            print("y:", res_on.y)
-
-            print(i, res_on.y)
+            if not res_on.success:
+                raise ValueError(f"IVP solution failed: {res_on.message} Try decreasing parameters.")
 
             state = res_on.y[:, -1]
 
             t_eval_off = np.linspace(t_pulse_end, t_end, n_eval)
 
-            res_off = solve_ivp(self._repetition_derivatives_off, [t_pulse_end, t_end], state, method=method)
+            res_off = solve_ivp(self._repetition_derivatives_off, [t_pulse_end, t_end], state, t_eval=t_eval_off, method=method)
 
-            print(i, res_off.y)
+            if not res_off.success:
+                raise ValueError(f"IVP solution failed: {res_off.message} Try decreasing parameters.")
 
             state = res_off.y[:, -1]
 
@@ -201,7 +187,6 @@ class MPI:
             print(f"Ionization rate: {self.k1:.2e}")
 
     def pulse(self, t_eval=None, method="RK45"):
-        print(self.k1)
         res = solve_ivp(self._pulse_derivatives, [0, self.ionization_laser.pulse_duration], self.N, t_eval=t_eval, method=method)
 
         self.pulse_time_array = res.t
@@ -238,15 +223,19 @@ class MPI:
 
             t_eval_on = np.linspace(t_start, t_pulse_end, n_eval)
 
-            print(self.k1)
-
             res_on = solve_ivp(self._repetition_derivatives_on, [t_start, t_pulse_end], state, t_eval=t_eval_on, method=method)
+
+            if not res_on.success:
+                raise ValueError(f"IVP solution failed: {res_on.message} Try decreasing parameters.")
 
             state = res_on.y[:, -1]
 
             t_eval_off = np.linspace(t_pulse_end, t_end, n_eval)
 
             res_off = solve_ivp(self._repetition_derivatives_off, [t_pulse_end, t_end], state, t_eval=t_eval_off, method=method)
+            
+            if not res_off.success:
+                raise ValueError(f"IVP solution failed: {res_off.message} Try decreasing parameters.")
 
             state = res_off.y[:, -1]
 
