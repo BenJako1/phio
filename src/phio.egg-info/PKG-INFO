@@ -3,4 +3,6 @@ Name: phio
 Version: 0.1.0
 Summary: A laser-induced photoionization simulation package
 Requires-Python: >=3.9
+License-File: LICENSE
 Requires-Dist: numpy
+Dynamic: license-file

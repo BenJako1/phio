@@ -1,0 +1,5 @@
+type: "pulsed"
+wavelength: 249.6e-9
+pulse_energy: 3e-3
+pulse_duration: 5.0e-9
+repetition_rate: 150
