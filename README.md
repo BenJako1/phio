@@ -232,3 +232,7 @@ https://github.com/BenJako1/phio
 ## License
 
 `phio` is released under the MIT License.
+
+## Disclosure on the use of generative AI
+
+Generative AI was used to some degree in certain parts of `phio` development, the LLM used primarily for this was `GPT-5.6 Luna`. While some methods were suggested or checked by AI, all code in `phio` was understood by a human before being used in the code base.
