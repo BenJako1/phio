@@ -12,7 +12,8 @@ pressure = 1e-6 * 1e2
 
 num_rep = 5
 
-pulse_powers = np.logspace(0, 7, 15)
+pulse_powers = np.logspace(0, 7, 8)
+spot_diameters = np.logspace(-6, -2, 20)
 
 fig, ax = plt.subplots()
 
@@ -23,18 +24,19 @@ phio.medium.set_ionization_params(order, cs_SI)
 
 io = Laser()
 
-ac = []
 for pp in pulse_powers:
-    io.set_cw(193e-9, pp)
-    io.geometry.set_focused_beam(5.5e-6, 190e-3, 10e-3)
+    ac = []
+    for sd in spot_diameters:
+        io.set_cw(193e-9, pp)
+        io.geometry.set_focused_beam(sd, 190e-3, 10e-3)
 
-    phio.mpi.define_lasers(io)
-    phio.mpi.calculate_parameters()
-    phio.mpi.continuous(method="BDF")
+        phio.mpi.define_lasers(io)
+        phio.mpi.calculate_parameters()
+        phio.mpi.continuous(method="BDF")
 
-    ac.append(phio.mpi.average_current())
+        ac.append(phio.mpi.average_current())
 
-ax.loglog(pulse_powers, ac)
+    ax.loglog(spot_diameters, ac, label=pp)
 
 ax.legend()
 ax.grid(which="both")

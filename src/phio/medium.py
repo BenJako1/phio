@@ -20,7 +20,9 @@ class Medium:
         self.ionization_order = order
         self.ionization_cross_section = cross_section
 
-    def set_gas_params(self, atomic_mass):
+    def set_gas_params(self, atomic_mass, kinetic_diameter):
         self.atomic_mass = atomic_mass
+        self.kinetic_diameter = kinetic_diameter
 
         self.mean_speed = np.sqrt(8 * BOLTZMANN_CONST * self.temperature / (np.pi * self.atomic_mass))
+        self.mean_free_path = 1 / (np.pi * self.number_density * self.kinetic_diameter**2)

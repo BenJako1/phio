@@ -37,7 +37,6 @@ for pe in pulse_energies:
         phio.mpi.pulse(method="BDF")
         phio.mpi.repetition(number_repetitions=1, method="BDF")
 
-        pc.append(phio.mpi.peak_current())
         ac.append(phio.mpi.average_current())
 
     ax[0].loglog(pulse_durations, pc, label=pe)

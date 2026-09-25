@@ -1,7 +1,7 @@
 from scipy.integrate import solve_ivp
 import numpy as np
 
-from utils import calculate_kinetic_rate, calculate_photon_flux
+from .utils import calculate_kinetic_rate, calculate_photon_flux
 
 PLANCK_CONST = 6.62607015e-34
 LIGHT_SPEED = 299792458.0
@@ -108,7 +108,7 @@ class MPI:
 
         t_eval = np.linspace(0, t_end, n_eval)
 
-        res = solve_ivp(self._repetition_derivatives_on, [0, t_end], state, t_eval=t_eval, method=method)
+        res = solve_ivp(self._pulse_derivatives, [0, t_end], state, t_eval=t_eval, method=method)
         
         if not res.success:
             raise ValueError(f"IVP solution failed: {res.message} Try decreasing parameters.")
