@@ -4,8 +4,8 @@ import numpy as np
 from phio.phio import Phio
 from phio.laser.laser import Laser
 
-order = 2
-cs = 1.1e-51
+order = 3
+cs = 4.6e-83
 cs_SI = cs * 1e-2**(2*order)
 temperature = 150 + 273.15
 pressure = 1e-6 * 1e2
@@ -27,7 +27,7 @@ pc = []
 ac = []
 
 for pe in pulse_energies:
-    io.set_pulsed(193e-9, pe, 25e-9, 150)
+    io.set_pulsed(266e-9, pe, 25e-9, 150)
     io.geometry.set_focused_beam(5.5e-6, 190e-3, 10e-3)
 
     phio.mpi.define_lasers(io)
@@ -64,6 +64,8 @@ ax[0,1].set_xlabel("Time [s]")
 ax[0,1].set_title(f"Population change over {num_rep} repetitions")
 
 ax[1,0].loglog(pulse_energies, pc)
+ax[1,0].grid(which="both")
 ax[1,1].loglog(pulse_energies, ac)
+ax[1,1].grid(which="both")
 
 plt.show()

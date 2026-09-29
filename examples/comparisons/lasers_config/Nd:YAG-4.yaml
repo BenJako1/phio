@@ -1,0 +1,10 @@
+type: "pulsed"
+wavelength: 266e-9
+pulse_energy: 3e-3
+pulse_duration: 5.0e-9
+repetition_rate: 150
+
+geometry: "focused"
+spot_diameter: 10e-6
+focal_length: 190e-3
+aperture_diameter: 10e-3

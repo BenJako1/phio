@@ -1,6 +1,7 @@
 from .laser.laser import Laser
 from .medium import Medium
-from .population import MPI, REMPI
+from .rempi import REMPI
+from .mpi import MPI
 
 class Phio:
     def __init__(self):

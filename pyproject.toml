@@ -9,6 +9,9 @@ description = "A laser-induced photoionization simulation package"
 requires-python = ">=3.9"
 dependencies = [
     "numpy",
+    "scipy.integrate",
+    "matplotlib",
+    "pyyaml"
 ]
 
 [tool.setuptools.packages.find]

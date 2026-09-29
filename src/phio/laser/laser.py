@@ -1,5 +1,6 @@
 import numpy as np
 from pathlib import Path
+import os
 
 from phio.config import load_config
 from phio.laser.geometry import Geometry
